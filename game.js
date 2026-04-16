@@ -35,7 +35,7 @@ let gameState = {
 const camera = { y: 1500, depth: 0.8 }; 
 const roadWidth = 2000;
 const segmentLength = 200;
-const drawDistance = 300; 
+const drawDistance = 800; // Aumentado para o jogador enxergar mais longe
 let segments = [];
 let trackLength = 0;
 
@@ -291,6 +291,9 @@ function render3D() {
         segmentsToDraw.push(segment);
 
         let color = segment.color;
+
+        // Otimização: não desenha polígonos que têm 0 px de altura na tela (comum no horizonte)
+        if (Math.floor(segment.p1.screen.y) === Math.floor(segment.p2.screen.y)) continue;
 
         ctx.fillStyle = color.grass;
         ctx.fillRect(0, segment.p2.screen.y, width, segment.p1.screen.y - segment.p2.screen.y + 1);
