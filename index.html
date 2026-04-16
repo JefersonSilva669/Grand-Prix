@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Prix Heritage - HD-2D Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <!-- O Canvas usa filtros CSS para criar o efeito HD-2D (Blur, contraste e brilho) -->
+        <canvas id="gameCanvas"></canvas>
+        <div id="scanline-overlay"></div>
+        <div id="vignette-overlay"></div>
+        
+        <div id="ui-layer">
+            <div class="top-bar">
+                <div id="era-display">
+                    <span class="era-year">1930s</span>
+                    <span class="era-name">A Era dos "Charutos"</span>
+                </div>
+                <div id="score-display">Distância: <span id="distanceValue">0</span> km</div>
+            </div>
+
+            <div class="bottom-bar">
+                <div id="speed-display">
+                    <div class="speed-value" id="speedValue">0</div>
+                    <div class="speed-unit">KM/H</div>
+                </div>
+
+                <div id="damage-panel">
+                    <div class="panel-title">ESTADO DO VEÍCULO</div>
+                    <div class="damage-item">
+                        <div class="part-name">Motor (Vel. Máxima)</div>
+                        <div class="health-bar"><div class="health-fill" id="health-motor" style="width: 100%;"></div></div>
+                    </div>
+                    <div class="damage-item">
+                        <div class="part-name">Suspensão (Agilidade)</div>
+                        <div class="health-bar"><div class="health-fill" id="health-suspensao" style="width: 100%;"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="game-over-screen" class="hidden">
+                <h1 class="glitch-text">VEÍCULO DESTRUÍDO</h1>
+                <p>Distância final: <span id="final-distance">0</span> km</p>
+                <button id="restart-btn">NOVA CORRIDA</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
