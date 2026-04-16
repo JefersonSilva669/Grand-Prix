@@ -33,21 +33,25 @@ let gameState = {
 };
 
 const camera = { y: 1500, depth: 0.8 }; 
-const roadWidth = 2000;
+const roadWidth = 3500; // Pista muito mais larga
 const segmentLength = 200;
-const drawDistance = 800; // Aumentado para o jogador enxergar mais longe
+const drawDistance = 6000; // Horizonte renderizado absurdamente mais longe
 let segments = [];
 let trackLength = 0;
 
 function resetRoad() {
     segments = [];
-    for (let n = 0; n < 2000; n++) {
+    for (let n = 0; n < 8000; n++) {
         let curve = 0;
         if (n > 100 && n < 300) curve = 2; 
         if (n > 400 && n < 600) curve = -2; 
         if (n > 800 && n < 1000) curve = 3;
         if (n > 1200 && n < 1400) curve = -3;
         if (n > 1600 && n < 1800) curve = 1.5;
+        if (n > 2000 && n < 2500) curve = 2.5;
+        if (n > 3000 && n < 3500) curve = -2.5;
+        if (n > 4500 && n < 5500) curve = 1.5;
+        if (n > 6500 && n < 7500) curve = -2;
 
         segments.push({
             index: n,
@@ -142,6 +146,7 @@ const player = {
         ctx.save();
         ctx.translate(px, py);
         ctx.rotate(tilt);
+        ctx.scale(1.6, 1.6); // Aumenta visual do carro do jogador bastante
         
         ctx.fillStyle = "rgba(0,0,0,0.6)";
         ctx.fillRect(-70, +25, 140, 20);
@@ -195,7 +200,7 @@ function spawnEnemy(zStart) {
         speed: 80 + Math.random() * 80, 
         color: `hsl(${Math.random() * 360}, 60%, 40%)`,
         markedForDeletion: false,
-        widthScale: 0.3
+        widthScale: 0.8
     });
 }
 let spawnTimer = 0;
@@ -225,7 +230,7 @@ function resetGame() {
     
     resetRoad();
     enemies.length = 0;
-    for(let i=0; i<30; i++) {
+    for(let i=0; i<80; i++) {
         spawnEnemy(Math.random() * trackLength);
     }
     
@@ -329,7 +334,7 @@ function render3D() {
             if (scale > 0 && scale < 20) { 
                 let spriteX = seg.p1.screen.x + (scale * e.x * roadWidth * width / 2);
                 let spriteY = seg.p1.screen.y; 
-                let spriteW = scale * 1000 * (width / 2); 
+                let spriteW = scale * 4000 * (width / 2); 
                 let spriteH = spriteW * 0.5;
 
                 ctx.save();
